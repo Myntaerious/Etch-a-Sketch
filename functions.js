@@ -3,7 +3,7 @@ function createSketchPad(n,cont){
     for(let i=0; i<n*n; i++){
     const div = document.createElement('div');
     div.addEventListener('mouseover', function (e){
-        e.target.style.backgroundColor = `rgba(${randomColor()},${randomColor()},${randomColor()})`;
+        e.target.style.backgroundColor = `rgba(${randomColor()},${randomColor()},${randomColor()},1)`;
     });
     div.classList.add('square');
     cont.appendChild(div);
