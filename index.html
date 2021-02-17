@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JS Drum Kit</title>
+  <title>Etch a Sketch</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,35 +12,16 @@
     <div id="instructions">
         <p>Move your mouse over the board to start sketching</p>
     </div>
-    <div id="clrBtn">
+    <div class="btn">
     <button id="clrBtn">Clear Screen & Create New Sketchpad</button>
     </div>
     <div class="container"></div>
+    <script src="functions.js"></script>
 <script>
     let num=16;
     const container = document.querySelector('.container');
-    
-    function createSketchPad(n){
-        container.style.cssText = `grid-template-columns:repeat(${n}, 1fr); grid-template-rows: repeat(${n}, 1fr)`;  
-        for(let i=0; i<n*n; i++){
-        const div = document.createElement('div');
-        div.addEventListener('mouseover', function (e){
-            event.target.style.backgroundColor = 'cyan';
-        });
-        div.classList.add('square');
-        container.appendChild(div);
-        }
-    }
 
-    function deleteSketchPad(sktpd){
-        while(sktpd.firstChild){
-            sktpd.removeChild(sktpd.firstChild);
-        }
-    }
-
-
-    createSketchPad(num);
-    
+    createSketchPad(num,container);
 
     const squares = document.querySelectorAll('.square');
 
@@ -50,17 +31,24 @@
                 div.style.backgroundColor = 'white';
             });
             do{
-                num = parseInt(prompt("Enter how many squares per side you want for the new Sketchpad (under 70): "));
-                if(num>70){
-                    alert("The number must be 70 or less!");
+                let userSelect = prompt("Enter how many squares per side you want for the new Sketchpad (under 70): ");
+                if(userSelect===null) {
+                    alert("The Sketchpad will be cleared and keep the same amount of squares");
+                    break;
                 }
-                if(Number(num)!==num){
-                    alert("You must introduce a number!");
-                }
-    
-            }while(num>70 || Number(num)!==num);
+                else{
+                    num = parseInt(userSelect);
+                    if(num>70 || num < 2){
+                        alert("The number must be between 2 and 70!");
+                    }
+                    if(Number(num)!==num){
+                        alert("You must introduce a number!");
+                    }
+                }                  
+            
+            }while(num>70 || num<2 || Number(num)!==num);
             deleteSketchPad(container);
-            createSketchPad(num);
+            createSketchPad(num,container);
         });
     
 </script>
